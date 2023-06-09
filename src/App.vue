@@ -1,30 +1,73 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+   <v-app id="inspire">
+    <v-system-bar>
+      
+    </v-system-bar>
+
+    <v-navigation-drawer v-model="drawer">
+      <v-sheet
+        color="grey-lighten-4"
+        class="pa-4"
+      >
+        <v-avatar
+          class="mb-4"
+          color="grey-darken-1"
+          size="64"
+        ></v-avatar>
+
+        <div>john@google.com</div>
+      </v-sheet>
+
+      <v-divider></v-divider>
+
+      <v-list>
+        <v-list-item
+          v-for="[icon, text] in links"
+          :key="icon"
+          link
+        >
+          <template v-slot:prepend>
+            <v-icon>{{ icon }}</v-icon>
+          </template>
+
+          <v-list-item-title>{{ text }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+
+    <v-main>
+      <router-view/>
+    </v-main>
+  </v-app>
+
+   
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script setup>
+  import { ref } from 'vue'
 
-nav {
-  padding: 30px;
-}
+ 
+  const links = [
+    ['mdi-inbox-arrow-down', 'Inbox'],
+    ['mdi-send', 'Send'],
+    ['mdi-delete', 'Trash'],
+    ['mdi-alert-octagon', 'Spam'],
+  ]
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+  const drawer = ref(null)
+</script>
 
-nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+<script>
+  export default {
+    data: () => ({
+      cards: ['Today', 'Yesterday'],
+      drawer: null,
+      links: [
+        ['mdi-inbox-arrow-down', 'Inbox'],
+        ['mdi-send', 'Send'],
+        ['mdi-delete', 'Trash'],
+        ['mdi-alert-octagon', 'Spam'],
+      ],
+    }),
+  }
+</script>
